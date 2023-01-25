@@ -1,19 +1,24 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Link, useHistory} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {
 	confirmCheckout,
 	getOpenUserOrders,
-	emptyPaymentMethod,
+	emptyPaymentMethod
 } from '../../../redux/actions';
 import {CardElement, useStripe, useElements} from '@stripe/react-stripe-js';
 import {store} from 'react-notifications-component';
 import Swal from 'sweetalert2';
 import SumaryDiv from './styled';
+import {Elements} from '@stripe/react-stripe-js';
+import {loadStripe} from '@stripe/stripe-js';
+import {calculateCartPrice} from '../../../utils/calculateCartPrice.js';
 
+const {REACT_APP_STRIPE_PUBLIC_KEY} = process.env;
+const stripePromise = loadStripe(REACT_APP_STRIPE_PUBLIC_KEY);
 const FORM_ID = 'payment-form';
 
-const SumarryCart = ({count, placeOrder, paymentMethod}) => {
+const SumaryCart = ({placeOrder, paymentMethod}) => {
 	const preferenceId = useSelector((state) => state.paymentMethod);
 	const shippingInfo = useSelector((state) => state.shippingInfo);
 	const cartProduct = useSelector((state) => state.cartProducts);
@@ -22,6 +27,16 @@ const SumarryCart = ({count, placeOrder, paymentMethod}) => {
 	const stripe = useStripe();
 	const elements = useElements();
 	const history = useHistory();
+	const [totals, setTotals] = useState({
+		amount: 0,
+		currency: '',
+		delivery: 0
+	});
+
+	useEffect(() => {
+		cartProduct && setTotals(calculateCartPrice(cartProduct));
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	const handleOrderSubmit = async (e) => {
 		e.preventDefault();
@@ -30,10 +45,11 @@ const SumarryCart = ({count, placeOrder, paymentMethod}) => {
 			const cardElement = elements.getElement(CardElement);
 			const {paymentMethod} = await stripe.createPaymentMethod({
 				type: 'card',
-				card: cardElement,
+				card: cardElement
 			});
 			if (paymentMethod) idStripe = paymentMethod.id;
 		}
+		console.log(idStripe, 'idStripe', userId, 'userId');
 		userId &&
 			dispatch(
 				confirmCheckout({userId, shippingInfo, paymentMethod, idStripe})
@@ -87,7 +103,7 @@ const SumarryCart = ({count, placeOrder, paymentMethod}) => {
 				title: 'Success!',
 				text: 'The order was processed.',
 				icon: 'success',
-				confirmButtonText: 'Ok',
+				confirmButtonText: 'Ok'
 			});
 
 			history.push('/catalogue');
@@ -108,8 +124,8 @@ const SumarryCart = ({count, placeOrder, paymentMethod}) => {
 			dismiss: {
 				duration: 3000,
 				onScreen: true,
-				pauseOnHover: true,
-			},
+				pauseOnHover: true
+			}
 		});
 	};
 
@@ -125,8 +141,8 @@ const SumarryCart = ({count, placeOrder, paymentMethod}) => {
 			dismiss: {
 				duration: 3000,
 				onScreen: true,
-				pauseOnHover: true,
-			},
+				pauseOnHover: true
+			}
 		});
 	};
 
@@ -137,12 +153,16 @@ const SumarryCart = ({count, placeOrder, paymentMethod}) => {
 					<div className='summary__title'>
 						<h2>Summary</h2>
 						<div className='total__prd'>
-							<p>total products</p>
-							<p>${count}</p>
+							<p>Total products</p>
+							<p>
+								{totals.currency} {totals.amount + totals.delivery}
+							</p>
 						</div>
 						<div className='total__prd'>
-							<p>Shipping Cost </p>
-							<p>$ 5</p>
+							<p>Shipping Cost</p>
+							<p>
+								{totals.currency} {totals.delivery}
+							</p>
 						</div>
 					</div>
 				) : (
@@ -174,13 +194,13 @@ const SumarryCart = ({count, placeOrder, paymentMethod}) => {
 											fontSize: '1.5rem',
 											color: '#616161',
 											'::placeholder': {
-												color: '#757575',
-											},
+												color: '#757575'
+											}
 										},
 										invalid: {
-											color: '#ee362e',
-										},
-									},
+											color: '#ee362e'
+										}
+									}
 								}}
 							/>
 						</div>
@@ -209,6 +229,17 @@ const SumarryCart = ({count, placeOrder, paymentMethod}) => {
 				</Link>
 			)}
 		</SumaryDiv>
+	);
+};
+
+//
+const SumarryCart = () => {
+	return (
+		<div>
+			<Elements stripe={stripePromise}>
+				<SumaryCart />
+			</Elements>
+		</div>
 	);
 };
 

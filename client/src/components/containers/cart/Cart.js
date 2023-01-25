@@ -1,25 +1,30 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import DIV_CART from './styled';
 import {postLocalStorage} from '../../../redux/actions/index';
 import {useDispatch, useSelector} from 'react-redux';
 import CardCartProducts from '../cardCartProducts/CardCartProducts';
 import {Link} from 'react-router-dom';
 import SumarryCart from '../sumarryCart/SumarryCart';
-import {changeCartPrice} from '../../../utils/changeCartPrice';
+import {calculateCartPrice} from '../../../utils/calculateCartPrice';
 
 const Cart = () => {
 	const dispatch = useDispatch();
 	const cartProduct = useSelector((state) => state.cartProducts);
-	const payIn = useSelector((state) => state.payIn);
+	const [totals, setTotals] = useState({
+		amount: 0,
+		currency: '',
+		delivery: 0
+	});
+
 	useEffect(() => {
 		const user = window.localStorage.getItem('userId');
 		if (user) {
 			dispatch(postLocalStorage({products: cartProduct, userId: user}));
 			window.localStorage.setItem('cart', JSON.stringify([]));
-		} // eslint-disable-next-line react-hooks/exhaustive-deps
+		}
+		cartProduct && setTotals(calculateCartPrice(cartProduct));
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
-
-	let count$ = cartProduct && changeCartPrice(cartProduct, 'ARS');
 
 	return (
 		<DIV_CART>
@@ -48,10 +53,14 @@ const Cart = () => {
 						<Link to='/catalogue'>
 							<p className='p_back_home'>{'<<'} Continue Shopping</p>
 						</Link>
-						{count$ && <p className='h2__sbt'>U$D {count$}</p>}
+						{totals.amount && (
+							<p className='h2__sbt'>
+								{totals.currency} {totals.amount}
+							</p>
+						)}
 					</div>
 				</div>
-				<SumarryCart count={count$} payIn={payIn} />
+				<SumarryCart />
 			</div>
 		</DIV_CART>
 	);

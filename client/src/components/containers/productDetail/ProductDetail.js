@@ -11,7 +11,7 @@ import {
 	addFavProductToDB,
 	removeFavProductToDB,
 	postLocalStorage,
-	getAllProducts,
+	getAllProducts
 } from '../../../redux/actions/index';
 import {IoLogoWhatsapp, IoReturnDownBack} from 'react-icons/io5';
 import {BsLightning} from 'react-icons/bs';
@@ -42,12 +42,12 @@ const ProductDetail = ({id, location}) => {
 			setVariants({
 				...variants,
 				lot: 1,
-				variant: Number(e.target.value),
+				variant: Number(e.target.value)
 			});
 		} else {
 			setVariants({
 				...variants,
-				[e.target.name]: Number(e.target.value),
+				[e.target.name]: Number(e.target.value)
 			});
 		}
 	};
@@ -78,7 +78,7 @@ const ProductDetail = ({id, location}) => {
 			addCartProduct({
 				id: product._id,
 				lot: variants.lot,
-				variant: variants.variant,
+				variant: variants.variant
 			})
 		);
 		if (userId) {
@@ -87,9 +87,9 @@ const ProductDetail = ({id, location}) => {
 					products: {
 						id: product._id,
 						lot: variants.lot,
-						variant: variants.variant,
+						variant: variants.variant
 					},
-					userId,
+					userId
 				})
 			);
 			window.localStorage.setItem('cart', JSON.stringify([]));
@@ -132,7 +132,7 @@ const ProductDetail = ({id, location}) => {
 						</div>
 
 						<a
-							href={`whatsapp://send?text=https://client-ecommerce-ebon.vercel.app/products/id/${product._id}`}
+							href={`whatsapp://send?text=${process.env.REACT_APP_FRONTEND_URL}/products/id/${product._id}`}
 							data-action='share/whatsapp/share'
 						>
 							<IoLogoWhatsapp />
@@ -192,17 +192,17 @@ const ProductDetail = ({id, location}) => {
 														container: 'top-center',
 														animationIn: [
 															'animate__animated',
-															'animate__fadeIn',
+															'animate__fadeIn'
 														],
 														animationOut: [
 															'animate__animated',
-															'animate__fadeOut',
+															'animate__fadeOut'
 														],
 														dismiss: {
 															duration: 3000,
 															onScreen: true,
-															pauseOnHover: true,
-														},
+															pauseOnHover: true
+														}
 													})
 												}
 											>

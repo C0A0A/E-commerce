@@ -13,7 +13,7 @@ function Contact() {
 					<div className='box_1'>
 						<h1 className='main__title'>Contact</h1>
 						<p className='main__subtitle'>
-							we will respond to you as soon as possible
+							We will respond to you as soon as possible.
 						</p>
 					</div>
 
@@ -26,12 +26,6 @@ function Contact() {
 								<li>
 									<h3>Phone</h3>
 								</li>
-								<li>
-									<p>
-										Lorem Ipsum is simply dummy text of the printing and
-										typesetting industry.
-									</p>
-								</li>
 								<li>+1-2345-2345</li>
 							</ul>
 						</div>
@@ -43,13 +37,7 @@ function Contact() {
 								<li>
 									<h3>Email</h3>
 								</li>
-								<li>
-									<p>
-										Lorem Ipsum is simply dummy text of the printing and
-										typesetting industry.{' '}
-									</p>
-								</li>
-								<li>support@henrystore.com</li>
+								<li>store.henry.ecommerce@gmail.com</li>
 							</ul>
 						</div>
 						<div className='contact__card'>
@@ -58,15 +46,17 @@ function Contact() {
 									<MdExplore />
 								</li>
 								<li>
-									<h3>Contact</h3>
+									<h3>Henry's Academy</h3>
 								</li>
 								<li>
-									<p>
-										Lorem Ipsum is simply dummy text of the printing and
-										typesetting industry.{' '}
-									</p>
+									<a
+										target='_blank'
+										href='https://www.soyhenry.com/about-us'
+										rel='noopener noreferrer'
+									>
+										https://www.soyhenry.com/about-us
+									</a>
 								</li>
-								<li>Ver en Google</li>
 							</ul>
 						</div>
 					</div>

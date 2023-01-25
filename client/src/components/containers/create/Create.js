@@ -13,7 +13,7 @@ const Create = ({options, setCreate, create, Items, allProducts}) => {
 		periferic: false,
 		specs: [],
 		variants: ['color', 'stock', 'imageUrl', 'imageFile'],
-		products: [],
+		products: []
 	});
 
 	const [variant, setVariant] = useState('');
@@ -21,11 +21,11 @@ const Create = ({options, setCreate, create, Items, allProducts}) => {
 	const [inputUser, setInputUser] = useState({
 		email: '',
 		password: '',
-		role: '',
+		role: ''
 	});
 
 	const [inputBrand, setInputBrand] = useState({
-		name: '',
+		name: ''
 	});
 
 	const [errorCategory, setErrorCategory] = useState({});
@@ -39,27 +39,17 @@ const Create = ({options, setCreate, create, Items, allProducts}) => {
 	const handleOnChangeCategory = (e) => {
 		setInputCategory({
 			...inputCategory,
-			[e.target.name]: e.target.value,
+			[e.target.name]: e.target.value
 		});
 		setErrorCategory(
 			categoryValidate(
 				{
 					...inputCategory,
-					[e.target.name]: e.target.value,
+					[e.target.name]: e.target.value
 				},
 				Items
 			)
 		);
-		if (inputCategory.periferic === 'true')
-			return setInputCategory({
-				...inputCategory,
-				periferic: true,
-			});
-		if (inputCategory.periferic === 'false')
-			return setInputCategory({
-				...inputCategory,
-				periferic: false,
-			});
 	};
 
 	const handleOnChangeVariant = (e) => {
@@ -71,7 +61,7 @@ const Create = ({options, setCreate, create, Items, allProducts}) => {
 			return window.alert('This variant already exists');
 		setInputCategory({
 			...inputCategory,
-			variants: [...inputCategory.variants, variant],
+			variants: [...inputCategory.variants, variant]
 		});
 		setVariant('');
 	};
@@ -85,20 +75,20 @@ const Create = ({options, setCreate, create, Items, allProducts}) => {
 			...inputCategory,
 			variants: inputCategory.variants
 				.slice(0, index)
-				.concat(inputCategory.variants.slice(index + 1)),
+				.concat(inputCategory.variants.slice(index + 1))
 		});
 	};
 
 	const handleOnChangeUser = (e) => {
 		setInputUser({
 			...inputUser,
-			[e.target.name]: e.target.value,
+			[e.target.name]: e.target.value
 		});
 		setErrorUser(
 			userValidate(
 				{
 					...inputUser,
-					[e.target.name]: e.target.value,
+					[e.target.name]: e.target.value
 				},
 				Items
 			)
@@ -108,13 +98,13 @@ const Create = ({options, setCreate, create, Items, allProducts}) => {
 	const handleOnChangeBrand = (e) => {
 		setInputBrand({
 			...inputBrand,
-			[e.target.name]: e.target.value,
+			[e.target.name]: e.target.value
 		});
 		setErrorBrand(
 			brandValidate(
 				{
 					...inputBrand,
-					[e.target.name]: e.target.value,
+					[e.target.name]: e.target.value
 				},
 				Items
 			)
@@ -135,7 +125,7 @@ const Create = ({options, setCreate, create, Items, allProducts}) => {
 			periferic: false,
 			specs: [],
 			variants: ['color', 'stock', 'imageUrl', 'imageFile'],
-			products: [],
+			products: []
 		});
 		allProducts();
 	};
@@ -154,7 +144,7 @@ const Create = ({options, setCreate, create, Items, allProducts}) => {
 		setInputUser({
 			email: '',
 			password: '',
-			role: '',
+			role: ''
 		});
 		allProducts();
 	};
@@ -169,7 +159,7 @@ const Create = ({options, setCreate, create, Items, allProducts}) => {
 			window.alert(error);
 		}
 		setInputUser({
-			name: '',
+			name: ''
 		});
 		allProducts();
 	};
@@ -193,28 +183,6 @@ const Create = ({options, setCreate, create, Items, allProducts}) => {
 							></input>
 							{errorCategory.name && (
 								<p className='danger'>{errorCategory.name}</p>
-							)}
-						</div>
-						<div className='row'>
-							<div onChange={handleOnChangeCategory} className='title'>
-								• Is it a peripheral?: &nbsp;
-								<input
-									className='radio-button'
-									type='radio'
-									value={true}
-									name='periferic'
-								/>{' '}
-								<div className='option'> Yes</div>
-								<input
-									className='radio-button'
-									type='radio'
-									value={false}
-									name='periferic'
-								/>{' '}
-								<div className='option'> No</div>
-							</div>
-							{errorCategory.periferic && (
-								<p className='danger'>{errorCategory.periferic}</p>
 							)}
 						</div>
 						<div className='row'>

@@ -4,7 +4,7 @@ import {
 	getAllProducts,
 	getProducts,
 	postLocalStorage,
-	getWishListOfDB,
+	getWishListOfDB
 } from '../../../redux/actions';
 import HomeStyle from './styled';
 import Carousel from '../carousel';
@@ -14,22 +14,19 @@ import {Link} from 'react-router-dom';
 const Home = () => {
 	const allProducts = useSelector((state) => state.allProducts);
 	const cartProduct = useSelector((state) => state.cartProducts);
+	const dispatch = useDispatch();
+	const reverseProducts = allProducts && allProducts.slice(-10);
 
-	const deReversaMami = allProducts && allProducts.slice(-10);
 	useEffect(() => {
 		const user = window.localStorage.getItem('userId');
 		if (user) {
 			dispatch(postLocalStorage({products: cartProduct, userId: user}));
 			window.localStorage.setItem('cart', JSON.stringify([]));
 			dispatch(getWishListOfDB(user));
-		} // eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
-
-	const dispatch = useDispatch();
-	useEffect(() => {
+		}
 		dispatch(getProducts());
-		dispatch(getAllProducts());
-	}, []); // eslint-disable-line react-hooks/exhaustive-deps
+		dispatch(getAllProducts()); // eslint-disable-next-line
+	}, []);
 
 	return (
 		<HomeStyle>
@@ -42,16 +39,7 @@ const Home = () => {
 					<span>see more</span>
 				</Link>
 			</div>
-
-			<ProductCarousel items={deReversaMami} />
-			<div className='product__row'>
-				<br></br>
-				<h3 className='top__text'>ON SALE</h3>
-				<Link to='/catalogue'>
-					<span>see more</span>
-				</Link>
-			</div>
-			<ProductCarousel items={allProducts} />
+			<ProductCarousel items={reverseProducts} />
 		</HomeStyle>
 	);
 };

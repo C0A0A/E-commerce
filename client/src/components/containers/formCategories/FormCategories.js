@@ -19,7 +19,7 @@ const FormCategorie = () => {
 		categories: [],
 		variants: [],
 		products: [],
-		periferic: false,
+		periferic: false
 	});
 	const [Datalist, setDatalist] = useState([{key: '', label: ''}]);
 	const [Variants, setVariants] = useState([]);
@@ -42,7 +42,7 @@ const FormCategorie = () => {
 				categories: [],
 				variants: [],
 				products: [],
-				periferic: false,
+				periferic: false
 			});
 		else {
 			const categorie = allCategories.filter(
@@ -53,7 +53,7 @@ const FormCategorie = () => {
 				id: categorie[0]._id,
 				categories: [categorie[0].name],
 				variants: categorie[0].variants,
-				products: categorie[0].products,
+				products: categorie[0].products
 			});
 		}
 	};
@@ -93,7 +93,7 @@ const FormCategorie = () => {
 		setErrors(
 			validate({
 				...Inputs,
-				[e.target.name]: e.target.value,
+				[e.target.name]: e.target.value
 			})
 		);
 	};
@@ -102,7 +102,7 @@ const FormCategorie = () => {
 		setErrors(
 			validate({
 				...Inputs,
-				[e.target.name]: e.target.value,
+				[e.target.name]: e.target.value
 			})
 		);
 		setVariants(e.target.value);
@@ -134,14 +134,14 @@ const FormCategorie = () => {
 					categories: [],
 					variants: [],
 					products: [],
-					periferic: false,
+					periferic: false
 				});
 				if (response.data.message === 'Success') {
 					Swal.fire({
 						title: 'Success!',
 						text: 'Categorie succesfully Delete',
 						icon: 'warning',
-						confirmButtonText: 'Ok',
+						confirmButtonText: 'Ok'
 					});
 				}
 			}
@@ -150,7 +150,7 @@ const FormCategorie = () => {
 				title: 'Error',
 				text: err.response.data.message,
 				icon: 'error',
-				confirmButtonText: 'Ok',
+				confirmButtonText: 'Ok'
 			});
 		}
 	};
@@ -164,7 +164,7 @@ const FormCategorie = () => {
 						title: 'Success!',
 						text: 'Categorie succesfully Modified',
 						icon: 'success',
-						confirmButtonText: 'Ok',
+						confirmButtonText: 'Ok'
 					});
 				}
 			} else {
@@ -174,7 +174,7 @@ const FormCategorie = () => {
 						title: 'Success!',
 						text: 'Categorie succesfully Created',
 						icon: 'success',
-						confirmButtonText: 'Ok',
+						confirmButtonText: 'Ok'
 					});
 				}
 			}
@@ -184,7 +184,7 @@ const FormCategorie = () => {
 				title: 'Error',
 				text: err.response.data.message,
 				icon: 'error',
-				confirmButtonText: 'Ok',
+				confirmButtonText: 'Ok'
 			});
 		}
 	};
@@ -235,35 +235,6 @@ const FormCategorie = () => {
 							{Errors.categories && (
 								<p className='danger'>{Errors.categories}</p>
 							)}
-						</div>
-						<div className='form__radio'>
-							<label className='form__label '>
-								This category is a Periferic?
-							</label>
-							<div>
-								<input
-									onClick={handleOnChange}
-									type='radio'
-									id='yes'
-									name='periferic'
-									value='true'
-								/>
-								<label className='form__label' for='periferic'>
-									Yes
-								</label>
-								<br></br>
-								<input
-									onClick={handleOnChange}
-									type='radio'
-									id='no'
-									name='periferic'
-									value='false'
-								/>
-								<label className='form__label' for='periferic'>
-									No
-								</label>
-								<br></br>
-							</div>
 						</div>
 					</div>
 					<div className='form__element '>

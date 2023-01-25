@@ -120,3 +120,5 @@ uploads/
 .env.development.local
 .env.test.local
 .env.production.local
+localhost-key.pem
+localhost.pem

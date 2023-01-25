@@ -2,7 +2,7 @@ const {
 	Products,
 	Categories,
 	Brands,
-	Currencies,
+	Currencies
 } = require('../models/index.js');
 const mongoose = require('mongoose');
 const {filterProducts} = require('../utils/utils.js');
@@ -14,13 +14,13 @@ async function getProductsDetail(req, res) {
 		return res.status(400).send({
 			response: '',
 			type: 'Bad Request',
-			message: 'No ID in params',
+			message: 'No ID in params'
 		});
 	if (!mongoose.Types.ObjectId.isValid(id))
 		return res.status(400).send({
 			response: '',
 			type: 'Bad Request',
-			message: 'ID is invalid',
+			message: 'ID is invalid'
 		});
 	else {
 		Products.findById(id)
@@ -49,7 +49,7 @@ function getAllProducts(req, res) {
 			if (!data.length)
 				return res.send({
 					products: [],
-					message: 'Query parameters do not match.',
+					message: 'Query parameters do not match.'
 				});
 			return res.send({response: data, type: 'Ok', message: 'Success'});
 		})
@@ -107,14 +107,14 @@ function getProducts(req, res) {
 			.populate('combo', {name: 1})
 			.sort(order)
 			.exec(),
-		Currencies.find().sort({month: -1}).limit(1).exec(),
+		Currencies.find().sort({month: -1}).limit(1).exec()
 	])
 		.then((data) => {
 			if (!data[0].length)
 				return res.send({
 					products: [],
 					pages: [],
-					message: 'Query parameters do not match.',
+					message: 'Query parameters do not match.'
 				});
 			const quotes = data[1] && data[1][0].quotes;
 			let result = filterProducts(
@@ -158,7 +158,7 @@ async function addReview(req, res) {
 		return res.status(400).send({
 			response: '',
 			type: 'Bad request.',
-			message: 'The fields are empty.',
+			message: 'The fields are empty.'
 		});
 
 	try {
@@ -185,13 +185,13 @@ async function createProduct(req, res) {
 		categories,
 		brands,
 		specs,
-		combo,
+		combo
 	} = info;
 	if (Object.values(info).length < Object.keys(info).length)
 		return res.status(400).send({
 			response: '',
 			type: 'Bad request.',
-			message: 'The fields are empty.',
+			message: 'The fields are empty.'
 		});
 	variants.forEach((variant) => {
 		variant.imageUrl = variant.imageUrl ? [variant.imageUrl] : [];
@@ -207,7 +207,7 @@ async function createProduct(req, res) {
 			return res.status(400).send({
 				response: '',
 				type: 'Internal server error.',
-				message: 'A product with this name already exists',
+				message: 'A product with this name already exists'
 			});
 
 		const product = new Products({
@@ -219,7 +219,7 @@ async function createProduct(req, res) {
 			brands,
 			variants,
 			specs,
-			combo,
+			combo
 		});
 
 		if (files.length) {
@@ -227,7 +227,7 @@ async function createProduct(req, res) {
 				files.map((file) =>
 					cloudinary.v2.uploader.upload(file.path, {
 						folder: 'Store',
-						use_filename: true,
+						use_filename: true
 					})
 				)
 			);
@@ -278,7 +278,7 @@ async function updateProduct(req, res) {
 		return res.status(400).send({
 			response: '',
 			type: 'Bad request.',
-			message: 'The fields are empty.',
+			message: 'The fields are empty.'
 		});
 	const files = req.files;
 	const info = JSON.parse(req.body.info);
@@ -302,7 +302,7 @@ async function updateProduct(req, res) {
 				files.map((file) =>
 					cloudinary.v2.uploader.upload(file.path, {
 						folder: 'Store',
-						use_filename: true,
+						use_filename: true
 					})
 				)
 			);
@@ -333,7 +333,7 @@ async function updateProduct(req, res) {
 					)
 				));
 			const categoriesWithProduct = await Categories.find({
-				products: req.params.id,
+				products: req.params.id
 			});
 			const categoriesToUpdate = categoriesWithProduct
 				.map((category) => category._doc._id)
@@ -360,7 +360,7 @@ async function updateProduct(req, res) {
 					)
 				));
 			const brandsWithProduct = await Brands.find({
-				products: req.params.id,
+				products: req.params.id
 			});
 			const brandsToUpdate = brandsWithProduct
 				.map((brand) => brand._doc._id)
@@ -390,13 +390,13 @@ async function deleteProduct(req, res) {
 		return res.status(400).send({
 			response: '',
 			type: 'Bad request.',
-			error: 'The fields are empty.',
+			error: 'The fields are empty.'
 		});
 	try {
 		const deletedProduct = await Products.findByIdAndDelete(idProduct);
 
 		const brandsWithProduct = await Brands.find({
-			products: idProduct,
+			products: idProduct
 		});
 		const brandsToDeleteProduct = brandsWithProduct.map(
 			(brand) => brand._doc._id
@@ -411,7 +411,7 @@ async function deleteProduct(req, res) {
 				)
 			));
 		const categoriesWithProduct = await Categories.find({
-			products: idProduct,
+			products: idProduct
 		});
 		const categoriesToDeleteProduct = categoriesWithProduct.map(
 			(category) => category._doc._id
@@ -441,5 +441,5 @@ module.exports = {
 	updateProduct,
 	deleteProduct,
 	getAllProducts,
-	addReview,
+	addReview
 };

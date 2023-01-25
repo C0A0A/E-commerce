@@ -8,7 +8,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import {BiLeftArrowAlt, BiRightArrowAlt} from 'react-icons/bi';
 
-function CarouselPrueba({items}) {
+function CarouselProducts({items}) {
 	const config = {
 		dots: false,
 		infinite: true,
@@ -22,24 +22,24 @@ function CarouselPrueba({items}) {
 				breakpoint: 1430,
 				settings: {
 					arrows: false,
-					slidesToShow: 3,
-				},
+					slidesToShow: 3
+				}
 			},
 			{
 				breakpoint: 1075,
 				settings: {
 					arrows: false,
-					slidesToShow: 2,
-				},
+					slidesToShow: 2
+				}
 			},
 			{
 				breakpoint: 740,
 				settings: {
 					arrows: false,
-					slidesToShow: 1,
-				},
-			},
-		],
+					slidesToShow: 1
+				}
+			}
+		]
 	};
 
 	const PreviusBtn = (props) => {
@@ -67,7 +67,7 @@ function CarouselPrueba({items}) {
 					{items
 						? items.map((e, i) => {
 								return (
-									<div key={i + e + 'div'}>
+									<div key={i + e.product._id + 'div'}>
 										<CardProduct
 											key={e.product._id}
 											name={e.product.name}
@@ -86,4 +86,4 @@ function CarouselPrueba({items}) {
 	);
 }
 
-export default CarouselPrueba;
+export default CarouselProducts;

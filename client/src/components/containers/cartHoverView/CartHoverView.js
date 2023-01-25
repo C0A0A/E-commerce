@@ -1,29 +1,31 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import {postLocalStorage} from '../../../redux/actions';
 import CardHoverProducts from '../cardHoverProduct/CardHoverProduct';
-import {changeCartPrice} from '../../../utils/changeCartPrice';
+import {calculateCartPrice} from '../../../utils/calculateCartPrice';
 
 const CartHoverView = () => {
 	const dispatch = useDispatch();
 	const cartProduct = useSelector((state) => state.cartProducts);
 	const user = useSelector((state) => state.userId);
-	let delivery = 100;
+	const [totals, setTotals] = useState({
+		amount: 0,
+		currency: '',
+		delivery: 0
+	});
 
 	useEffect(() => {
 		if (user) {
 			dispatch(postLocalStorage({cartProduct, user}));
 			window.localStorage.setItem('cart', JSON.stringify([]));
-		} // eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
-	const rendering = true;
+		}
+		cartProduct && setTotals(calculateCartPrice(cartProduct));
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [cartProduct]);
 
-	let count$ = cartProduct && changeCartPrice(cartProduct, rendering);
-
-	let total = parseFloat(count$) + delivery;
 	return (
 		<div className='cartHoverView'>
 			<div className='row'>
@@ -61,15 +63,20 @@ const CartHoverView = () => {
 							<span>Subtotal ({cartProduct.length} items)</span>
 						</div>
 						<div>
-							<b>${count$}</b>
+							<b>
+								{totals.currency} {totals.amount}
+							</b>
 						</div>
 					</div>
 					<div className='delivery'>
 						<div>
-							<span>Delivery charge</span>
+							<span>Shipping Cost</span>
 						</div>
 						<div>
-							<b>${delivery}</b>
+							<b>
+								{totals.currency}
+								{totals.delivery}
+							</b>
 						</div>
 					</div>
 
@@ -80,7 +87,11 @@ const CartHoverView = () => {
 							<span>Total</span>
 						</div>
 						<div className='totalPrice'>
-							<span>{rendering ? <>AR$ {total}</> : <>U$D {total}</>}</span>
+							<span>
+								<>
+									{totals.currency} {totals.amount + totals.delivery}
+								</>
+							</span>
 						</div>
 					</div>
 					<Link to='/cart'>

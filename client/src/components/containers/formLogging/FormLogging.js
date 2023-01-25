@@ -2,6 +2,7 @@
 import React, {useState, useEffect} from 'react';
 import {useDispatch} from 'react-redux';
 import GoogleLogin from 'react-google-login';
+import {gapi} from 'gapi-script';
 import {FcGoogle} from 'react-icons/fc';
 import Login_Style from './styled';
 import {Link, useHistory} from 'react-router-dom';
@@ -18,7 +19,18 @@ const FormLogging = () => {
 	let history = useHistory();
 	const [input, setInput] = useState({
 		email: '',
-		password: '',
+		password: ''
+	});
+	const clientId = process.env.GOOGLE_CLIENT_ID;
+
+	useEffect(() => {
+		const initClient = () => {
+			gapi.client.init({
+				clientId: clientId,
+				scope: ''
+			});
+		};
+		gapi.load('client:auth2', initClient);
 	});
 
 	useEffect(() => {
@@ -38,17 +50,17 @@ const FormLogging = () => {
 					const message = data.notLogin;
 					if (message && message.includes('User')) {
 						setErrors({
-							email: message,
+							email: message
 						});
 					} else {
 						setErrors({
-							password: message,
+							password: message
 						});
 					}
 				} else {
 					setInput({
 						email: '',
-						password: '',
+						password: ''
 					});
 
 					window.localStorage.setItem('token', data.token);
@@ -75,7 +87,7 @@ const FormLogging = () => {
 							title: 'Success!',
 							text: 'Succesfully login',
 							icon: 'success',
-							confirmButtonText: 'Ok',
+							confirmButtonText: 'Ok'
 						}).then(() => history.push('/catalogue'));
 					}
 				}
@@ -88,7 +100,7 @@ const FormLogging = () => {
 	const onChangeHandler = (e) => {
 		setInput({
 			...input,
-			[e.target.name]: e.target.value,
+			[e.target.name]: e.target.value
 		});
 	};
 
@@ -98,7 +110,7 @@ const FormLogging = () => {
 			lastName: response.profileObj.familyName,
 			profileImage: response.profileObj.imageUrl,
 			email: response.profileObj.email,
-			password: response.profileObj.googleId,
+			password: response.profileObj.googleId
 		};
 
 		let users = await axios.get(URLS.URL_USERS);
@@ -240,7 +252,7 @@ const FormLogging = () => {
 						</div>
 						<div className='googleDiv'>
 							<GoogleLogin
-								clientId='5491811175-59r3kvkuqolj3301kabjf1om68a2jcke.apps.googleusercontent.com'
+								clientId={clientId}
 								render={(renderProps) => (
 									<button
 										className='googleButton'

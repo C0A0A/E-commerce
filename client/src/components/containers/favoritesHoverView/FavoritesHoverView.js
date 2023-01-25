@@ -46,57 +46,6 @@ const FavoritesHoverView = () => {
 					) : null}
 				</div>
 			</div>
-
-			{/* <div className='subtotal'>
-				<div>
-					<span>Subtotal ({favsProduct.length} items)</span>
-				</div>
-				<div>
-					{rendering ? (
-						<div className='divCurrency'>
-							<p className='h2__sbt'>AR$ {count$}</p>
-							<button
-								onClick={() => setRendering(!rendering)}
-								className='btn__sbt'
-							>
-								Pay in U$D
-							</button>
-						</div>
-					) : (
-						<div className='divCurrency'>
-							<p className='h2__sbt'>U$D {count$}</p>
-							<button
-								onClick={() => setRendering(!rendering)}
-								className='btn__sbt'
-							>
-								Pay in AR$
-							</button>
-						</div>
-					)}
-				</div>
-			</div>
-
-			<div className='delivery'>
-				<div>
-					<span>Delivery charge</span>
-				</div>
-				<div>
-					<span>${delivery}</span>
-				</div>
-			</div>
-
-			<div className='separator'></div>
-
-			<div className='cartBottom'>
-				<div className='totalSpan'>
-					<span>Total</span>
-				</div>
-				<div className='totalPrice'>
-					<span>{rendering ? <>AR$ {total}</> : <>U$D {total}</>}</span>
-				</div>
-			</div>
-
-			<div className='cartItemBtn'>Continue to checkout</div> */}
 		</div>
 	);
 };

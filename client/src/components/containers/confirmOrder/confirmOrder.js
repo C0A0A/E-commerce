@@ -17,12 +17,6 @@ function Index() {
 	const cartProduct = useSelector((state) => state.cartProducts);
 	const shippingInfo = useSelector((state) => state.shippingInfo);
 	const [payment, setPayment] = useState({paymentMethod: ''});
-	const amount =
-		cartProduct &&
-		cartProduct.reduce((a, b) => {
-			return (a += b.product.price.value * b.lot);
-		}, 0);
-
 	const onClickHandler = (e) => {
 		setPayment({paymentMethod: e});
 	};
@@ -105,7 +99,7 @@ function Index() {
 													: 'payment__option'
 												: ''
 										}
-										name='stripe'
+										name='mercadopago'
 										onClick={() => onClickHandler('mercadopago')}
 									>
 										<div className='payment__option__left'>
@@ -139,33 +133,45 @@ function Index() {
 								<div className='order__items'>
 									{cartProduct &&
 										cartProduct.map((el, i) => (
-											<div className='product' key={i + el + 'div1'}>
-												<div className='product__left' key={i + el + 'div2'}>
-													<div className='product__img' key={i + el + 'div3'}>
+											<div
+												className='product'
+												key={i + el.product._id + 'div1'}
+											>
+												<div
+													className='product__left'
+													key={i + el.product._id + 'div2'}
+												>
+													<div
+														className='product__img'
+														key={i + el.product._id + 'div3'}
+													>
 														<img
 															className='img'
 															src={el.product.imageUrl[0]}
 															alt='product'
-															key={i + el + 'img'}
+															key={i + el.product._id + 'img'}
 														></img>
 													</div>
 												</div>
-												<div className='product__info' key={i + el + 'div4'}>
+												<div
+													className='product__info'
+													key={i + el.product._id + 'div4'}
+												>
 													<span
 														className='product__name'
-														key={i + el + 'span1'}
+														key={i + el.product._id + 'span1'}
 													>
 														<h2>{el.product.name}</h2>
 													</span>
 													<span
 														className='product__model'
-														key={i + el + 'span2'}
+														key={i + el.product._id + 'span2'}
 													>
 														{el.product.brands}
 													</span>
 													<span
 														className='product__price'
-														key={i + el + 'span3'}
+														key={i + el.product._id + 'span3'}
 													>
 														{el.product.price.currency}
 														&nbsp;
@@ -173,7 +179,10 @@ function Index() {
 													</span>
 												</div>
 
-												<div className='product__right' key={i + el + 'div5'}>
+												<div
+													className='product__right'
+													key={i + el.product._id + 'div5'}
+												>
 													x {el.lot}
 												</div>
 											</div>
@@ -187,7 +196,6 @@ function Index() {
 						<SumaryCart
 							placeOrder={true}
 							paymentMethod={payment.paymentMethod}
-							count={amount}
 						></SumaryCart>
 					</div>
 				</div>

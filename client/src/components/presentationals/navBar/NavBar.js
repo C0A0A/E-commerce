@@ -99,7 +99,11 @@ const NavBar = () => {
 						)}
 					</div>
 					{userId ? (
-						<Badge badgeContent={favsProduct.length} color='secondary'>
+						<Badge
+							badgeContent={favsProduct.length}
+							color='secondary'
+							overlap='rectangular'
+						>
 							<div className='iconDiv cart'>
 								<Link to='/favorites'>
 									<IoHeart className='icon' />
@@ -108,7 +112,11 @@ const NavBar = () => {
 							</div>
 						</Badge>
 					) : null}
-					<Badge badgeContent={cartProduct.length} color='secondary'>
+					<Badge
+						badgeContent={cartProduct.length}
+						color='secondary'
+						overlap='rectangular'
+					>
 						<div className='iconDiv cart'>
 							<Link to='/cart'>
 								<IoCart className='icon' />
@@ -171,7 +179,11 @@ const NavBar = () => {
 					</div>
 
 					{userId ? (
-						<Badge badgeContent={favsProduct.length} color='secondary'>
+						<Badge
+							badgeContent={favsProduct.length}
+							color='secondary'
+							overlap='rectangular'
+						>
 							<div className='iconDiv cart'>
 								<Link to='/favorites'>
 									<IoHeart className='icon' />
@@ -180,7 +192,11 @@ const NavBar = () => {
 							</div>
 						</Badge>
 					) : null}
-					<Badge badgeContent={cartProduct.length} color='secondary'>
+					<Badge
+						badgeContent={cartProduct.length}
+						color='secondary'
+						overlap='rectangular'
+					>
 						<div className='iconDiv cart'>
 							<Link to='/cart'>
 								<IoCart className='icon' />
@@ -188,7 +204,7 @@ const NavBar = () => {
 							<CartHoverView className='cartHoverView' />
 						</div>
 					</Badge>
-					<Badge color='secondary' onClick={handleClick}>
+					<Badge color='secondary' onClick={handleClick} overlap='rectangular'>
 						<div className='iconDiv responsive-menu'>
 							<div>
 								<GiHamburgerMenu className='icon' />

@@ -1,4 +1,3 @@
-require('dotenv').config();
 const express = require('express');
 const server = express();
 const morgan = require('morgan');
@@ -22,8 +21,8 @@ server.use(
 			'X-Requested-With',
 			'Content-Type',
 			'Accept',
-			'Authorization',
-		],
+			'Authorization'
+		]
 	})
 );
 

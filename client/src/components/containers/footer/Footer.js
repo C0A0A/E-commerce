@@ -27,7 +27,7 @@ function Footer() {
 					title: 'something goes wrong',
 					text: 'check if your email is correct',
 					icon: 'error',
-					confirmButtonText: 'Ok',
+					confirmButtonText: 'Ok'
 				});
 			}
 			if (e.target.value === 'suscribe') {
@@ -40,14 +40,14 @@ function Footer() {
 					title: res.data.message,
 					text: '',
 					icon: 'error',
-					confirmButtonText: 'Ok',
+					confirmButtonText: 'Ok'
 				});
 			} else {
 				await Swal.fire({
 					title: res.data.message,
 					text: '',
 					icon: 'success',
-					confirmButtonText: 'Ok',
+					confirmButtonText: 'Ok'
 				});
 			}
 			setEmail('');
@@ -70,7 +70,7 @@ function Footer() {
 						<i>
 							<FaEnvelope />
 						</i>
-						<p className='col__1__items'>support@henrystore.com</p>
+						<p className='col__1__items'>store.henry.ecommerce@gmail.com</p>
 					</li>
 					<li>
 						<i>
@@ -103,7 +103,7 @@ function Footer() {
 						<p>Buenos Aires, Argentina</p>
 					</li>
 					<li>
-						<p>support@henrystore.com</p>
+						<p>store.henry.ecommerce@gmail.com</p>
 					</li>
 					<li>
 						<p>+54 011 9898</p>

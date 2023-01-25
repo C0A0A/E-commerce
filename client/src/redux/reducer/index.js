@@ -3,7 +3,7 @@ import {
 	getCartLocalStorage,
 	setCartLocalStorage,
 	getWishListLocalStorage,
-	setWishListLocalStorage,
+	setWishListLocalStorage
 } from '../../utils/localStorage';
 import {store} from 'react-notifications-component';
 
@@ -20,8 +20,7 @@ const initialState = {
 	updateBrand: {},
 	cartProducts: getCartLocalStorage(),
 	user: {},
-	wishlist: getWishListLocalStorage(),
-	payIn: window.localStorage.getItem('dollar') || 'USD',
+	wishlist: getWishListLocalStorage()
 };
 
 const r = (state = initialState, {type, payload}) => {
@@ -38,22 +37,22 @@ const r = (state = initialState, {type, payload}) => {
 					: modif.lot;
 			return {
 				...state,
-				cartProducts: newCart,
+				cartProducts: newCart
 			};
 		case ActionTypes.CHANGE_LOT:
 			return {
 				...state,
-				cartProducts: payload,
+				cartProducts: payload
 			};
 		case ActionTypes.ADD_DB_PRODUCT_CART:
 			return {
 				...state,
-				cartProducts: payload,
+				cartProducts: payload
 			};
 		case ActionTypes.CLEAN_CART_PRODUCTS:
 			return {
 				...state,
-				cartProducts: payload,
+				cartProducts: payload
 			};
 
 		case ActionTypes.ADD_PRODUCT_CART:
@@ -71,8 +70,8 @@ const r = (state = initialState, {type, payload}) => {
 					animationOut: ['animate__animated', 'animate__fadeOut'],
 					dismiss: {
 						duration: 3000,
-						onScreen: true,
-					},
+						onScreen: true
+					}
 				});
 				return {...state};
 			} else {
@@ -86,13 +85,13 @@ const r = (state = initialState, {type, payload}) => {
 					animationOut: ['animate__animated', 'animate__fadeOut'],
 					dismiss: {
 						duration: 3000,
-						onScreen: true,
-					},
+						onScreen: true
+					}
 				});
 				setCartLocalStorage(state.cartProducts.concat(payload));
 				return {
 					...state,
-					cartProducts: state.cartProducts.concat(payload),
+					cartProducts: state.cartProducts.concat(payload)
 				};
 			}
 
@@ -104,7 +103,7 @@ const r = (state = initialState, {type, payload}) => {
 			setCartLocalStorage(payload);
 			return {
 				...state,
-				cartProducts: payload,
+				cartProducts: payload
 			};
 
 		case ActionTypes.REMOVE_CART_PRODUCT_LS:
@@ -117,7 +116,7 @@ const r = (state = initialState, {type, payload}) => {
 			} else setCartLocalStorage(delateProduct);
 			return {
 				...state,
-				cartProducts: delateProduct,
+				cartProducts: delateProduct
 			};
 
 		///////////////  PRODUCTS  ///////////////
@@ -125,84 +124,84 @@ const r = (state = initialState, {type, payload}) => {
 		case ActionTypes.GET_PRODUCTS:
 			return {
 				...state,
-				products: payload,
+				products: payload
 			};
 		case ActionTypes.GET_ALL_PRODUCTS:
 			return {
 				...state,
-				allProducts: payload,
+				allProducts: payload
 			};
 		case ActionTypes.GET_PRODUCTS_SEARCH:
 			return {
 				...state,
-				productSearch: payload,
+				productSearch: payload
 			};
 		case ActionTypes.GET_PRODUCTS_QUERY:
 			return {
 				...state,
-				products: payload,
+				products: payload
 			};
 		case ActionTypes.UPDATE_PRODUCT:
 			return {
 				...state,
-				products: payload,
+				products: payload
 			};
 		case ActionTypes.PRODUCT_DETAIL:
 			return {
 				...state,
-				productDetail: payload,
+				productDetail: payload
 			};
 		case ActionTypes.CLEAN_PRODUCT_DETAIL:
 			return {
 				...state,
-				productDetail: payload,
+				productDetail: payload
 			};
 		case ActionTypes.PRODUCT_CREATED:
 			return {
 				...state,
-				productCreated: payload,
+				productCreated: payload
 			};
 		case ActionTypes.EMPTY_PRODUCT_CREATED:
 			return {
 				...state,
-				productCreated: {},
+				productCreated: {}
 			};
 
 		///////////////  ORDERS  ///////////////
 		case ActionTypes.GET_ORDERS:
 			return {
 				...state,
-				orders: payload,
+				orders: payload
 			};
 		case ActionTypes.ORDER_DETAIL:
 			return {
 				...state,
-				orderDetail: payload,
+				orderDetail: payload
 			};
 
 		///////////////  CATEGORIES  ///////////////
 		case ActionTypes.GET_CATEGORIES:
 			return {
 				...state,
-				categories: payload,
+				categories: payload
 			};
 		///////////////  BRANDS  ///////////////
 		case ActionTypes.GET_BRANDS:
 			return {
 				...state,
-				brands: payload,
+				brands: payload
 			};
 		case ActionTypes.UPDATE_BRAND:
 			return {
 				...state,
-				updateBrand: payload,
+				updateBrand: payload
 			};
 
 		///////////////  USERS  ///////////////
 		case ActionTypes.LOGIN_USER:
 			return {
 				...state,
-				user: payload,
+				user: payload
 			};
 
 		///////////////  WISHLIST  ///////////////
@@ -216,7 +215,7 @@ const r = (state = initialState, {type, payload}) => {
 			found && setWishListLocalStorage(addFav);
 			return {
 				...state,
-				wishlist: addFav,
+				wishlist: addFav
 			};
 
 		case ActionTypes.REMOVE_FAV_PRODUCT:
@@ -224,7 +223,7 @@ const r = (state = initialState, {type, payload}) => {
 			setWishListLocalStorage(removeFav);
 			return {
 				...state,
-				wishlist: removeFav,
+				wishlist: removeFav
 			};
 
 		///////////////  CHECKOUT  ///////////////
@@ -232,12 +231,12 @@ const r = (state = initialState, {type, payload}) => {
 		case ActionTypes.CONFIRM_CHECKOUT:
 			return {
 				...state,
-				paymentMethod: payload,
+				paymentMethod: payload
 			};
 		case ActionTypes.EMPTY_PAYMENT_METHOD:
 			return {
 				...state,
-				paymentMethod: payload,
+				paymentMethod: payload
 			};
 
 		///////////////  SHIPPING  ///////////////
@@ -245,23 +244,9 @@ const r = (state = initialState, {type, payload}) => {
 		case ActionTypes.SET_SHIPPING_INFO:
 			return {
 				...state,
-				shippingInfo: payload,
+				shippingInfo: payload
 			};
 
-		///////////////  SHIPPING  ///////////////
-		case ActionTypes.SET_PAY_IN:
-			let currency = window.localStorage.getItem('dollar');
-			if (currency === 'ARS') {
-				currency = 'USD';
-				window.localStorage.setItem('dollar', 'USD');
-			} else {
-				currency = 'ARS';
-				window.localStorage.setItem('dollar', 'ARS');
-			}
-			return {
-				...state,
-				payIn: currency,
-			};
 		default:
 			return state;
 	}
