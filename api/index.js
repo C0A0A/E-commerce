@@ -7,7 +7,7 @@ const PORT = process.env.PORT || 3001;
 
 mongoose
 	.connect(
-		`mongodb+srv://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}?retryWrites=true&w=majority`,
+		`mongodb+srv://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/?retryWrites=true&w=majority`,
 		{
 			useNewUrlParser: true,
 			useUnifiedTopology: true,
