@@ -2,6 +2,8 @@ import styled from 'styled-components';
 
 const Footer = styled.div`
 	display: flex;
+	justify-content: center;
+	text-align: center;
 	position: relative;
 	width: 100%;
 	padding: 6rem 10%;
@@ -10,6 +12,7 @@ const Footer = styled.div`
 
 	.footer {
 		display: flex;
+		justify-content: center;
 	}
 
 	.title {
@@ -23,6 +26,7 @@ const Footer = styled.div`
 		color: #b1b1b1;
 		font-size: 1.2rem;
 		margin: 0 4rem;
+		text-align: center;
 
 		.col__1__items {
 			margin: 0 2rem;
@@ -30,6 +34,8 @@ const Footer = styled.div`
 
 		.newsletter__input {
 			display: flex;
+			justify-content: center;
+			text-align: center;
 		}
 
 		li {

@@ -59,7 +59,7 @@ function Footer() {
 		<FooterStyle>
 			<div className='footer___col grid_datos'>
 				<ul>
-					<span className='title'>GIVE US A CALL</span>
+					<span className='title'>INFORMATION</span>
 					<li>
 						<i>
 							<IoLocationSharp />
@@ -77,36 +77,6 @@ function Footer() {
 							<FaPhone />
 						</i>
 						<p className='col__1__items'>+54 011 9898</p>
-					</li>
-				</ul>
-			</div>
-
-			<div className='footer___col grid_pages'>
-				<ul>
-					<span className='title'>PAGES</span>
-					<li className='pages__items'>
-						<p>Brands</p>
-					</li>
-					<li className='pages__items'>
-						<p>Contact</p>
-					</li>
-					<li className='pages__items'>
-						<p>About Us</p>
-					</li>
-				</ul>
-			</div>
-
-			<div className='footer___col grid_my_account'>
-				<ul>
-					<span className='title'>MY ACCOUNT</span>
-					<li>
-						<p>Buenos Aires, Argentina</p>
-					</li>
-					<li>
-						<p>store.henry.ecommerce@gmail.com</p>
-					</li>
-					<li>
-						<p>+54 011 9898</p>
 					</li>
 				</ul>
 			</div>
