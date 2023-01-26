@@ -130,6 +130,14 @@ const Signup_Style = styled.div`
 			font-size: 1rem;
 			font-weight: 600;
 		}
+		.separadorDiv {
+      display: flex;
+      justify-content: center;
+      .separador {
+        border-top: 1px solid #bdbdbd;
+        margin-top: 5%;
+        width: 70%;
+      }
 	}
 `;
 

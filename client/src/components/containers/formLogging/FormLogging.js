@@ -1,9 +1,6 @@
 /* eslint-disable react/jsx-pascal-case */
 import React, {useState, useEffect} from 'react';
 import {useDispatch} from 'react-redux';
-import GoogleLogin from 'react-google-login';
-import {gapi} from 'gapi-script';
-import {FcGoogle} from 'react-icons/fc';
 import Login_Style from './styled';
 import {Link, useHistory} from 'react-router-dom';
 import axios from 'axios';
@@ -21,90 +18,8 @@ const FormLogging = () => {
 		email: '',
 		password: ''
 	});
-	const clientId = process.env.GOOGLE_CLIENT_ID;
 
-	useEffect(() => {
-		const initClient = () => {
-			gapi.client.init({
-				clientId: clientId,
-				scope: ''
-			});
-		};
-		gapi.load('client:auth2', initClient);
-	});
-
-	useEffect(() => {
-		setErrors({});
-	}, [input]);
-
-	const [errors, setErrors] = useState({});
-
-	const onSubmitHandler = async (e) => {
-		e.preventDefault();
-		axios
-			.post(URLS.URL_LOGIN, input)
-			.then(function (response) {
-				let data = response.data;
-
-				if (data.notLogin) {
-					const message = data.notLogin;
-					if (message && message.includes('User')) {
-						setErrors({
-							email: message
-						});
-					} else {
-						setErrors({
-							password: message
-						});
-					}
-				} else {
-					setInput({
-						email: '',
-						password: ''
-					});
-
-					window.localStorage.setItem('token', data.token);
-					window.localStorage.setItem(
-						'address',
-						JSON.stringify(data.user.address)
-					);
-					window.localStorage.setItem('email', data.user.email);
-					window.localStorage.setItem('firstName', data.user.firstName);
-					window.localStorage.setItem(
-						'identification',
-						data.user.identification
-					);
-					window.localStorage.setItem('lastName', data.user.lastName);
-					window.localStorage.setItem('profileImage', data.user.profileImage);
-					window.localStorage.setItem('userId', data.user._id);
-					window.localStorage.setItem('role', data.user.role);
-					dispatch(loginUser({role: data.user.role}));
-
-					if (data.user.role === 'admin') {
-						history.push('/admindashboard');
-					} else {
-						Swal.fire({
-							title: 'Success!',
-							text: 'Succesfully login',
-							icon: 'success',
-							confirmButtonText: 'Ok'
-						}).then(() => history.push('/catalogue'));
-					}
-				}
-			})
-			.catch(function (error) {
-				console.log(error);
-			});
-	};
-
-	const onChangeHandler = (e) => {
-		setInput({
-			...input,
-			[e.target.name]: e.target.value
-		});
-	};
-
-	const responseGoogle = async (response) => {
+	const handleGoogle = async (response) => {
 		let inputGoogle = {
 			firstName: response.profileObj.givenName,
 			lastName: response.profileObj.familyName,
@@ -186,6 +101,95 @@ const FormLogging = () => {
 		}
 	};
 
+	useEffect(() => {
+		/* global google */
+		if (window.google) {
+			google.accounts.id.initialize({
+				client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
+				callback: handleGoogle
+			});
+
+			google.accounts.id.renderButton(document.getElementById('loginDiv'), {
+				// type: "standard",
+				theme: 'filled_black',
+				// size: "small",
+				text: 'signin_with',
+				shape: 'pill'
+			});
+		} // eslint-disable-line react-hooks/exhaustive-deps
+	}, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+	useEffect(() => {
+		setErrors({});
+	}, [input]);
+
+	const [errors, setErrors] = useState({});
+
+	const onSubmitHandler = async (e) => {
+		e.preventDefault();
+		axios
+			.post(URLS.URL_LOGIN, input)
+			.then(function (response) {
+				let data = response.data;
+
+				if (data.notLogin) {
+					const message = data.notLogin;
+					if (message && message.includes('User')) {
+						setErrors({
+							email: message
+						});
+					} else {
+						setErrors({
+							password: message
+						});
+					}
+				} else {
+					setInput({
+						email: '',
+						password: ''
+					});
+
+					window.localStorage.setItem('token', data.token);
+					window.localStorage.setItem(
+						'address',
+						JSON.stringify(data.user.address)
+					);
+					window.localStorage.setItem('email', data.user.email);
+					window.localStorage.setItem('firstName', data.user.firstName);
+					window.localStorage.setItem(
+						'identification',
+						data.user.identification
+					);
+					window.localStorage.setItem('lastName', data.user.lastName);
+					window.localStorage.setItem('profileImage', data.user.profileImage);
+					window.localStorage.setItem('userId', data.user._id);
+					window.localStorage.setItem('role', data.user.role);
+					dispatch(loginUser({role: data.user.role}));
+
+					if (data.user.role === 'admin') {
+						history.push('/admindashboard');
+					} else {
+						Swal.fire({
+							title: 'Success!',
+							text: 'Succesfully login',
+							icon: 'success',
+							confirmButtonText: 'Ok'
+						}).then(() => history.push('/catalogue'));
+					}
+				}
+			})
+			.catch(function (error) {
+				console.log(error);
+			});
+	};
+
+	const onChangeHandler = (e) => {
+		setInput({
+			...input,
+			[e.target.name]: e.target.value
+		});
+	};
+
 	return (
 		<Login_Style>
 			<div className='loginContainer'>
@@ -250,25 +254,7 @@ const FormLogging = () => {
 						<div className='separadorDiv'>
 							<div className='separador'></div>
 						</div>
-						<div className='googleDiv'>
-							<GoogleLogin
-								clientId={clientId}
-								render={(renderProps) => (
-									<button
-										className='googleButton'
-										onClick={renderProps.onClick}
-										disabled={renderProps.disabled}
-									>
-										<FcGoogle className='googleLogo' />
-										&nbsp; &nbsp; Sign up with Google.
-									</button>
-								)}
-								buttonText='Login'
-								onSuccess={responseGoogle}
-								onFailure={responseGoogle}
-								cookiePolicy={'single_host_origin'}
-							/>
-						</div>
+						<div id='loginDiv'></div>
 						<div className='rowBottom'>
 							<p className='signUpBottom'> Don't have an account? </p>
 							<Link to='/signup'>

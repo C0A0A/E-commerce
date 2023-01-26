@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const Footer = styled.div`
 	display: flex;
-	justify-content: center;
+	justify-content: space-between;
 	text-align: center;
 	position: relative;
 	width: 100%;
@@ -17,15 +17,15 @@ const Footer = styled.div`
 
 	.title {
 		color: #ffffff;
-		font-size: 1.2rem;
-		font-weight: 600;
+		font-size: 1rem;
+		font-weight: 500;
 	}
 
 	ul {
 		list-style: none;
 		color: #b1b1b1;
-		font-size: 1.2rem;
-		margin: 0 4rem;
+		font-size: 0.8rem;
+		margin: 0 2rem;
 		text-align: center;
 
 		.col__1__items {
@@ -40,8 +40,9 @@ const Footer = styled.div`
 
 		li {
 			display: flex;
-			font-size: 0.9rem;
-			margin: 3rem 0;
+			justify-content: center;
+			font-size: 0.8rem;
+			margin: 1rem 0;
 
 			input {
 				width: 10rem;
@@ -58,7 +59,7 @@ const Footer = styled.div`
 				right: 0;
 				top: 0;
 				color: #ffffff;
-				width: 7rem;
+				width: 10rem;
 				border-radius: 0rem 0.5rem 0.5rem 0rem;
 				background-color: #ee362e;
 			}
@@ -76,8 +77,8 @@ const Footer = styled.div`
 	}
 
 	button {
-		width: 4rem;
-		height: 4rem;
+		width: 3rem;
+		height: 3rem;
 		border-radius: 0.5rem;
 		position: absolute;
 		background-color: #ee362e;
@@ -85,7 +86,7 @@ const Footer = styled.div`
 		bottom: 2rem;
 
 		i {
-			font-size: 1.5rem;
+			font-size: 1rem;
 			color: #ffffff;
 		}
 	}
